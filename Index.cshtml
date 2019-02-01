@@ -1,0 +1,91 @@
+﻿@using NonFactors.Mvc.Grid;
+@using Ubs.SOCO.UI.Models;
+
+@model IEnumerable<PlatoUser>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <ul class="nav nav-tabs nav-justified">
+        <li><a href="#dailyPnLTab" data-toggle="tab">DAILY PnL</a></li>
+        <li><a href="#feedCheckTab" data-toggle="tab">Feed Check</a></li>
+        <li><a href="#pane3" data-toggle="tab">Month-end Charges</a></li>
+        <li><a href="#pane4" data-toggle="tab">Holmes</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reconciliation<b class="caret"></b></a>
+            @if (ViewBag.AccrualEnabled)
+            {
+            <ul class="dropdown-menu">
+                <li><a href="#RFABOXITab" data-toggle="tab">RFA BOXI</a></li>
+                <li><a href="#RFAGGLTab" data-toggle="tab">RFA GGL</a></li>
+                <li><a href="#DailyAccrualTab" data-toggle="tab">Daily Accrual</a></li>
+            </ul>
+            }
+        </li>
+    </ul>
+</div>
+<div class="tab-content">
+    <div id="dailyPnLTab" class="tab-pane in active">
+
+        @{
+            Html.RenderAction("GetDailyPnL", "Dashboard");
+        }
+    </div>
+    <div id="feedCheckTab" class="tab-pane">
+        <div class="container">
+            @{
+                Html.RenderAction("FeedCheck", "FeedCheck");
+            }
+        </div>
+    </div>
+    <div id="RFABOXITab" class="tab-pane">
+
+
+
+    </div>
+    <div id="RFAGGLTab" class="tab-pane">
+
+
+    </div>
+    <div id="DailyAccrualTab" class="tab-pane">
+
+    </div>
+</div>
+
+<style>
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:focus,
+    .nav-tabs > li.active > a:hover {
+        background-color: #587dc0;
+        color: white;
+        border: 1px solid #1A3E5E;
+        border-bottom-color: transparent;
+    }
+
+
+    .nav-tabs > li > a:focus,
+    .nav-tabs > li > a:hover {
+        background-color: #587dc0 !important;
+        border-radius: 5px;
+        color: white;
+    }
+</style>
+@section scripts
+{
+    <script src="~/Scripts/SOCO/Dashboard.js"></script>
+    <script src="~/Scripts/SOCO/FeedCheck.js"></script>
+
+    <script>
+        $("#LayOutMenu").hide();
+        $('ul.nav li.dropdown').hover(function () {
+            $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn(100);
+        }, function () {
+            $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(500);
+        });
+    </script>
+}
+
